@@ -1,0 +1,10 @@
+{
+    "definition": {
+      "openapi": "3.0.0",
+      "info": {
+        "title": "Vinova Base Source",
+        "version": "1.0.0"
+      }
+    },
+    "apis": ["src/routes/blog.router.js"] 
+  }
