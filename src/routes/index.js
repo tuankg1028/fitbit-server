@@ -13,6 +13,10 @@ const router = Router();
  *         description: Success
  *
  */
-router.use("/blogs", [authUser], blogRouter);
+router.use(
+  "/blogs",
+  // [authUser],
+  blogRouter
+);
 
 export default router;

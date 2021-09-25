@@ -10,10 +10,47 @@ import Gyroscope from "../models/gyroscope.model";
 import { validInputBlog } from "../validators";
 import { DATA_TYPES } from "../helpers/constans";
 
-const list = async (req, res) => {
+const getAll = async (req, res) => {
   try {
-    results = await BlogModel.find();
-    res.json(blogs);
+    let result;
+    const { type } = req.query;
+
+    switch (type) {
+      case DATA_TYPES.HEART_RATE: {
+        result = await HeartRate.find();
+
+        break;
+      }
+      case DATA_TYPES.ACCELEMETER: {
+        result = await Accelerometer.find();
+        break;
+      }
+      case DATA_TYPES.BAROMETER: {
+        result = await Barometer.find();
+        break;
+      }
+      case DATA_TYPES.GEOLOCATION: {
+        result = await Geolocation.find();
+        break;
+      }
+      case DATA_TYPES.SLEEP: {
+        result = await Sleep.find();
+        break;
+      }
+      case DATA_TYPES.SLEEP: {
+        result = await Sleep.find();
+        break;
+      }
+      case DATA_TYPES.ORIENTATION: {
+        result = await Orientation.find();
+        break;
+      }
+      case DATA_TYPES.GYROSCOPE: {
+        result = await Gyroscope.find();
+        break;
+      }
+    }
+    res.json(result);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -67,6 +104,6 @@ const create = async (req, res) => {
 };
 
 export default {
-  list,
+  getAll,
   create
 };

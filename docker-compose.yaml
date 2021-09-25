@@ -1,9 +1,60 @@
-version: '3.6'
-
+version: '3.7'
 services:
-  node-server:
+  web:
+    image: untadee/fitbit-api:latest
     build: .
     ports:
-      - 3000:3000
+      - "3333:3333"
+    networks:
+      - fitbit-api
+      - traefik-public
+    depends_on:
+      - redis
+    
+    # service deployment
+    deploy:
+      # service resource management
+      resources:
+        # Hard limit - Docker does not allow to allocate more
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        # Soft limit - Docker makes best effort to return to it
+        reservations:
+          cpus: '0.50'
+          memory: 256M
+      # service restart policy
+      replicas: 10
+      update_config:
+        parallelism: 2
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.fitbit-api.rule=Host(`rais.dista.uninsubria.it`) && PathPrefix(`/fitbit-api/`)"
+        - traefik.http.routers.fitbit-api.entrypoints=https
+        - traefik.http.routers.fitbit-api.tls=true
+        - traefik.http.middlewares.fitbit-strip-prefix.stripprefix.prefixes=/fitbit-api
+        - traefik.http.routers.fitbit-api.middlewares=fitbit-strip-prefix
+        - traefik.http.services.fitbit-api.loadbalancer.server.port=3333
 
-   
+
+networks:
+  fitbit-api:
+  traefik-public:
+    external: true
+volumes:
+  data:
+
+
