@@ -59,7 +59,7 @@ jobs:
         port: ${{ secrets.PORT }}
         rm: true
         source: "docker-compose.yml,deploy.sh"
-        target: "${{ secrets.TARGER_DIR }}/fitbit-server"
+        target: "${{ secrets.TARGER_DIR }}/fitbit-api"
 
     - name: Deploy stacks 
       uses: appleboy/ssh-action@master
@@ -68,7 +68,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd ${{ secrets.TARGER_DIR }}/fitbit-server && sh deploy.sh
+        script: cd ${{ secrets.TARGER_DIR }}/fitbit-api && sh deploy.sh
 
     
   
