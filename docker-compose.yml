@@ -7,7 +7,6 @@ services:
     #   - "3333:3333"
     networks:
       - fitbit-web
-      # - traefik-public
     
     # service deployment
     deploy:
@@ -22,9 +21,45 @@ services:
           cpus: '0.50'
           memory: 256M
       # service restart policy
-      replicas: 10
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  
+  
+  fitbit-reactjs:
+    image: untadee/fitbit-web:latest
+    build: frontend/
+    ports:
+      - "4100:4100"
+    networks:
+      - fitbit-web
+      - traefik-public
+    deploy:
+      # service resource management
+      resources:
+        # Hard limit - Docker does not allow to allocate more
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        # Soft limit - Docker makes best effort to return to it
+        reservations:
+          cpus: '0.50'
+          memory: 256M
+      # service restart policy
+      replicas: 2
+      update_config:
+        parallelism: 1
         order: start-first
         failure_action: rollback
         delay: 10s
@@ -40,27 +75,18 @@ services:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
-        - traefik.http.routers.fitbit-api.rule=Host(`rais.dista.uninsubria.it`) && PathPrefix(`/fitbit-api/`)"
+        - traefik.http.routers.fitbit-api.rule=Host(`rais.dista.uninsubria.it`)
         - traefik.http.routers.fitbit-api.entrypoints=https
         - traefik.http.routers.fitbit-api.tls=true
         - traefik.http.middlewares.fitbit-strip-prefix.stripprefix.prefixes=/fitbit-api
         - traefik.http.routers.fitbit-api.middlewares=fitbit-strip-prefix
         - traefik.http.services.fitbit-api.loadbalancer.server.port=3333
-  
-  fitbit-reactjs:
-    image: untadee/fitbit-web:latest
-    build: frontend/
-    ports:
-      - "4100:4100"
-    networks:
-      - fitbit-web
-      # - traefik-public
 
 
 networks:
   fitbit-web:
-  # traefik-public:
-  #   external: true
+  traefik-public:
+    external: true
 volumes:
   data:
 
