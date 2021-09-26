@@ -2,7 +2,7 @@
 FROM node:10.18.0
 
 # create the directory inside the container
-WORKDIR /usr/src/fitbit-reactkrejs
+WORKDIR /usr/src/fitbit-reactjs
 
 # copy the package.json files from local machine to the workdir in container
 COPY frontend/package*.json ./

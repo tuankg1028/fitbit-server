@@ -52,7 +52,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./
-        file: fontend/Dockerfile
+        file: frontend/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fitbit-web:latest
         cache-from: type=local,src=/tmp/.buildx-cache
