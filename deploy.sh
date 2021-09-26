@@ -1,1 +1,1 @@
-docker stack deploy --compose-file docker-compose.yml fitbit-api
+docker stack deploy --compose-file docker-compose.yml fitbit-server
