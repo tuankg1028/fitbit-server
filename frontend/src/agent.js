@@ -3,7 +3,7 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'fibit-api:3333/api';
+const API_ROOT = 'https://rais.dista.uninsubria.it/fitbit-api/api';
 // const API_ROOT = 'https://conduit.productionready.io/api';
 
 const encode = encodeURIComponent;
