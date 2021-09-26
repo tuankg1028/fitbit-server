@@ -5,7 +5,7 @@ FROM node:10.18.0
 WORKDIR /usr/src/fitbit-api
 
 # copy the package.json files from local machine to the workdir in container
-COPY package*.json ./
+COPY api/package*.json ./
 
 # run npm install in our local machine
 RUN npm install
