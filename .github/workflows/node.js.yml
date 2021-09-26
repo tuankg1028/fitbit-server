@@ -36,19 +36,33 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
             
-    - name: Build and push
-      id: docker_build
+    - name: Build and push (API)
+      id: docker_build_api
       uses: docker/build-push-action@v2
       with:
         context: ./
-        file: ./Dockerfile
+        file: api/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fitbit-api:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+        
+    - name: Build and push (WEB)
+      id: docker_build_web
+      uses: docker/build-push-action@v2
+      with:
+        context: ./
+        file: fontend/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fitbit-web:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
 
-    - name: Image digest
-      run: echo ${{ steps.docker_build.outputs.digest }}
+    - name: Image digest (API)
+      run: echo ${{ steps.docker_build_api.outputs.digest }}
+      
+    - name: Image digest (WEB)
+      run: echo ${{ steps.docker_build_web.outputs.digest }}
 
     - name: Copy deploy files to Remote server via ssh password
       uses: appleboy/scp-action@master
@@ -68,7 +82,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd ${{ secrets.TARGER_DIR }}/fitbit-api && sh deploy.sh
+        script: cd ${{ secrets.TARGER_DIR }}/fitbit-server && sh deploy.sh
 
     
   
