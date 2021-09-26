@@ -13,7 +13,7 @@ RUN npm install
 RUN ls
 
 # copy the generated modules and all other files to the container
-COPY . .
+COPY api .
 
 # compile source to es5
 RUN npm run build
