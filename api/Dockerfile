@@ -2,13 +2,15 @@
 FROM node:10.18.0
 
 # create the directory inside the container
-WORKDIR /usr/src/app
+WORKDIR /usr/src/fitbit-api
 
 # copy the package.json files from local machine to the workdir in container
 COPY package*.json ./
 
 # run npm install in our local machine
 RUN npm install
+
+RUN ls
 
 # copy the generated modules and all other files to the container
 COPY . .
