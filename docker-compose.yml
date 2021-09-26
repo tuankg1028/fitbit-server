@@ -7,7 +7,7 @@ services:
       - "3333:3333"
     networks:
       - fitbit-web
-    
+      - traefik-public
     # service deployment
     deploy:
       # service resource management
@@ -52,6 +52,8 @@ services:
     build: frontend/
     ports:
       - "4100:4100"
+    depends_on: 
+      - fitbit-api
     networks:
       - fitbit-web
       - traefik-public
