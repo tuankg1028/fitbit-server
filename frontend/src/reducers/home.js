@@ -8,7 +8,8 @@ export default (state = defaultState, action) => {
     case HOME_PAGE_LOADED:
       return {
         ...state,
-        data: action.payload[0],
+        rawData: action.payload[0],
+        encryptedData: action.payload[1],
         sidebarTab: action.sidebarTab
       };
     case HOME_PAGE_UNLOADED:

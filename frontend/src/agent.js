@@ -88,7 +88,9 @@ const Profile = {
 };
 
 const Data = {
-  getAll: type => requests.get(`/blogs?type=${type}`)
+  getAll: type => requests.get(`/blogs?type=${type}`),
+  getEncryptedData: type => requests.get(`/blogs/encrypted-data?type=${type}`),
+  storeEncryptedData: data => requests.post(`/blogs/encrypted-data`, data)
 }
 
 export default {

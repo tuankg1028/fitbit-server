@@ -6,6 +6,7 @@ import Geolocation from "../models/geolocation.model";
 import Sleep from "../models/sleep.model";
 import Orientation from "../models/orientation.model";
 import Gyroscope from "../models/gyroscope.model";
+import EncyptedData from '../models/encypted-data.model'
 
 import { validInputBlog } from "../validators";
 import { DATA_TYPES } from "../helpers/constans";
@@ -104,7 +105,34 @@ const create = async (req, res) => {
   }
 };
 
+const createEncryptedData = async (req, res) => {
+  try {
+    HeartRate.model
+    const input = req.body;
+    console.log("Create data :: input", input)
+    const { id: userId } = req.user || {};
+    
+    const result = await EncyptedData.create(input)
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({message: error.message});
+  }
+};
+
+const getEncryptedData = async (req, res) => {
+  try {
+    const { type } = req.query;
+
+    const result = await EncyptedData.find({type})
+
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 export default {
   getAll,
-  create
+  create,
+  createEncryptedData,
+  getEncryptedData
 };

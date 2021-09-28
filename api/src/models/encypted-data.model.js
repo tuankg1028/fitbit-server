@@ -3,9 +3,10 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema(
   {
-    deviceModelId: String,
-    secretKey: String,
-    timestamp: String
+    cipherText: String,
+    timestamp: String,
+    type: String,
+    userId: mongoose.ObjectId
   },
   {
     timestamps: true,
@@ -13,6 +14,6 @@ var schema = new Schema(
   }
 );
 
-const model = mongoose.model("user", schema);
+const model = mongoose.model("encypted-data", schema);
 
 export default model;

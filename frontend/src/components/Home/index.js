@@ -4,6 +4,7 @@ import Tags from './Tags';
 import Sidebar from '../Sidebar';
 import agent from '../../agent';
 import { connect } from 'react-redux';
+import SEAL from 'node-seal'
 
 // 
 import {
@@ -34,19 +35,109 @@ const mapDispatchToProps = dispatch => ({
     dispatch({  type: CHANGE_TAB, tab }),
 });
 
+const encryptDataInterVal = async (props) => {
+  const seal = await SEAL()
+  const schemeType = seal.SchemeType.bfv
+  const securityLevel = seal.SecurityLevel.tc128
+  const polyModulusDegree = 4096
+  const bitSizes = [36, 36, 37]
+  const bitSize = 20
+
+  const parms = seal.EncryptionParameters(schemeType)
+
+  // Set the PolyModulusDegree
+  parms.setPolyModulusDegree(polyModulusDegree)
+
+  // Create a suitable set of CoeffModulus primes
+  parms.setCoeffModulus(
+    seal.CoeffModulus.Create(polyModulusDegree, Int32Array.from(bitSizes))
+  )
+
+  // Set the PlainModulus to a prime of bitSize 20.
+  parms.setPlainModulus(
+    seal.PlainModulus.Batching(polyModulusDegree, bitSize)
+  )
+
+  const context = seal.Context(
+    parms, // Encryption Parameters
+    true, // ExpandModChain
+    securityLevel // Enforce a security level
+  )
+  const encoder = seal.BatchEncoder(context)
+  const keyGenerator = seal.KeyGenerator(context)
+  
+  const publicKey = keyGenerator.createPublicKey()
+  const secretKey = keyGenerator.secretKey()
+  // console.log(2, secretKey.save())
+
+  const encryptor = seal.Encryptor(context, publicKey)
+  const decryptor = seal.Decryptor(context, secretKey)
+  const evaluator = seal.Evaluator(context)
+  
+  
+  const array = Int32Array.from([1,22,33])
+
+  
+
+ 
+
+  // const decryptedPlainText = decryptor.decrypt(cipherText)
+
+  // Decode the PlainText
+  // const decodedArray = encoder.decode(decryptedPlainText)
+
+
+  // if(props.data) {
+  
+  //   for (let i = 0; i < props.data.length; i++) {
+  //     const item = props.data[i];
+  //     // Create data to be encrypted
+  //     const array = Int32Array.from([item])
+
+  //     // Encode the Array
+  //     const plainText = encoder.encode(array)
+
+  //      // Encrypt the PlainText
+  //     const cipherText = encryptor.encrypt(plainText)
+
+  //     agent.Data.storeEncryptedData({
+  //       cipherText: cipherText.save(),
+  //       type: props.sidebarTab,
+  //       timestamp: item.timestamp
+  //     })
+  //   }
+  // }
+ 
+  // var intervalId = setInterval(() => {
+  //   console.log(1)
+  // }, 1000);
+  // // store intervalId in the state so it can be accessed later:
+  // this.setState({intervalId: intervalId});
+}
 class Home extends React.Component {
   componentWillMount() { 
     const { dataType } = this.props.match.params
     const sidebarTab = dataType && Object.values(DATA_TYPE).includes(dataType) ? dataType : DATA_TYPE.HEART_RATE
       
-    this.props.onLoad(sidebarTab, Promise.all([agent.Data.getAll(sidebarTab)]));
+    this.props.onLoad(sidebarTab, Promise.all([agent.Data.getAll(sidebarTab), agent.Data.getEncryptedData(sidebarTab)]));
   }
 
+  componentDidMount () {
+   
+  }
+  
+  componentWillUnmount () {
+      // use intervalId from the state to clear the interval
+      clearInterval(this.state.intervalId);
+  }
+
+    
   componentWillUnmount() {
     this.props.onUnload();
   }
 
   render() {
+    encryptDataInterVal(this.props)
     return (
       <div className="home-page">
 
