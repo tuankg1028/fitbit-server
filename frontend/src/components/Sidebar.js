@@ -70,7 +70,7 @@ class Sidebar extends React.Component {
           <div className="dropdown">
             <a href="#" className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="https://github.com/mdo.png" alt="" style={{width: "32px", height: "32px"}} className="rounded-circle me-2"/>
-              <strong>Le Thanh Tuan</strong>
+              <strong>Ha Xuan Son</strong>
             </a>
             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
               <li><a className="dropdown-item" href="#">Settings</a></li>
