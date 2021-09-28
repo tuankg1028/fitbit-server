@@ -26,13 +26,15 @@ class Sidebar extends React.Component {
           <ul className="nav nav-pills flex-column mb-auto">
             {
               Object.values(DATA_TYPE).map((item, index) => {
-                let tabName
+                let tabName, icon
                 switch(item) {
                   case (DATA_TYPE.HEART_RATE):
                     tabName = "Heart Rate"
+                    // icon = '/images/pulse.svg'
                     break
                   case (DATA_TYPE.ACCELEMETER):
                     tabName = "Accelerometer"
+                    // icon = '/images/accelerometer.png'
                     break
                   case (DATA_TYPE.BAROMETER):
                     tabName = "Barometer"
@@ -56,7 +58,7 @@ class Sidebar extends React.Component {
                 return (
                   <li className="nav-item" key={index}>
                     <a href={`/${item}`} className={"nav-link " + (this.props.sidebarTab === item ? "active" : "link-dark")}>
-                      <svg className="bi me-2" style={{width: "16", height: "16"}}></svg>
+                      { icon && (<img src={icon} alt="Heart rate" style={{width: 20, height: 20, marginRight: 5}}/>) }
                       {tabName}
                     </a>
                   </li>
@@ -65,19 +67,18 @@ class Sidebar extends React.Component {
             }
           </ul>
           <hr/>
-          {/* <div className="dropdown">
+          <div className="dropdown">
             <a href="#" className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="https://github.com/mdo.png" alt="" style={{width: "32px", height: "32px"}} className="rounded-circle me-2"/>
-              <strong>mdo</strong>
+              <strong>Le Thanh Tuan</strong>
             </a>
             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-              <li><a className="dropdown-item" href="#">New project...</a></li>
               <li><a className="dropdown-item" href="#">Settings</a></li>
               <li><a className="dropdown-item" href="#">Profile</a></li>
               <li><hr className="dropdown-divider"/></li>
               <li><a className="dropdown-item" href="#">Sign out</a></li>
             </ul>
-          </div> */}
+          </div>
         </div>
       </div>
     );

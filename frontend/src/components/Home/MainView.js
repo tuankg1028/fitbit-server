@@ -92,10 +92,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const MainView = props => {
-  if(props.data) {
-    return (
-    
-      <div className="col-12 col-md-9">
+  return (
+    <div className="col-12 col-md-9">
+      {
+        props.data ? (
         <table className="table table-hover">
           <thead>
             <tr>
@@ -107,11 +107,12 @@ const MainView = props => {
             {Rows(props)}
           </tbody>
         </table>
-      </div>
-    );
-  } else {
-    return (<div>Loading...</div>)
-  }
+        ) : (<div>Loading...</div>)
+      }
+      
+    </div>
+  );
+  
   
 };
 
