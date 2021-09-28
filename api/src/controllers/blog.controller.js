@@ -59,7 +59,8 @@ const getAll = async (req, res) => {
 const create = async (req, res) => {
   try {
     const input = req.body;
-    const { id: userId } = req.user;
+    console.log("Create data :: input", input)
+    const { id: userId } = req.user || {};
     let result;
     const { type } = input;
     switch (type) {
@@ -99,7 +100,7 @@ const create = async (req, res) => {
 
     res.status(200);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({message: error.message});
   }
 };
 
