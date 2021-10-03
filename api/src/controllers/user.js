@@ -26,6 +26,19 @@ const updateSecretKey = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    const user = await User.findOne({email})
+    
+   
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({message: error.message});
+  }
+}
 export default {
-  updateSecretKey
+  updateSecretKey,
+  getProfile
 };

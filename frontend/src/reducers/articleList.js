@@ -57,15 +57,15 @@ export default (state = {}, action) => {
     //   };
     case HOME_PAGE_UNLOADED:
       return {};
-    case PROFILE_PAGE_LOADED:
-    case PROFILE_FAVORITES_PAGE_LOADED:
-      return {
-        ...state,
-        pager: action.pager,
-        articles: action.payload[1].articles,
-        articlesCount: action.payload[1].articlesCount,
-        currentPage: 0
-      };
+    // case PROFILE_PAGE_LOADED:
+    // case PROFILE_FAVORITES_PAGE_LOADED:
+    //   return {
+    //     ...state,
+    //     pager: action.pager,
+    //     articles: action.payload[1].articles,
+    //     articlesCount: action.payload[1].articlesCount,
+    //     currentPage: 0
+    //   };
     case PROFILE_PAGE_UNLOADED:
     case PROFILE_FAVORITES_PAGE_UNLOADED:
       return {};

@@ -56,8 +56,8 @@ class App extends React.Component {
             appName={this.props.appName}
             currentUser={this.props.currentUser} />
             <Switch>
-            <Route path="/:dataType?" component={Home}/>
             <Route path="/login" component={Login} />
+            <Route path="/:dataType?" component={Home}/>
             <Route path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />

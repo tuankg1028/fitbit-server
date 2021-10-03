@@ -1,0 +1,4 @@
+session_id,activity_name,average_heart_rate,start_heart_rate,end_heart_rate,duration,start_date_time,end_date_time,session_type,stress_metrics,pause_times
+2e41ccf0-ca2f-11eb-8080-808080808080,Guided breathing,null,86,85,120000,2021-06-10T23:02:35+02:00,2021-06-10T23:04:35+02:00,relax-2.0,null,null
+1b7f7e50-addd-11eb-8080-808080808080,Guided breathing,null,98,93,120000,2021-05-05T22:04:32+02:00,2021-05-05T22:06:32+02:00,relax-2.0,null,null
+06562930-adc3-11eb-8080-808080808080,Quick scan,null,98,104,120000,2021-05-05T18:57:50+02:00,2021-05-05T18:59:31+02:00,eda-stress,{meanScore=-1  derivScore=43  peakScore=-1  hrvBaseline=-1  hrvSessionRsmmd=-1  Score6=-1},[[9  11]  [16  18]  [21  91]]

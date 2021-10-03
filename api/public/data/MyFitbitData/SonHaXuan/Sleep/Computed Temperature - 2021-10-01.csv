@@ -1,0 +1,2 @@
+type,sleep_start,sleep_end,temperature_samples,nightly_temperature,baseline_relative_sample_sum,baseline_relative_sample_sum_of_squares,baseline_relative_nightly_standard_deviation,baseline_relative_sample_standard_deviation
+SKIN,2021-10-01T03:11,2021-10-01T08:37:30,327,32.463348623853214,-21.002981927711517,458.1009151372127,0.7363408119997534,1.2070145058070818

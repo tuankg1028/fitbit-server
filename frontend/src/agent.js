@@ -3,7 +3,9 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://rais.dista.uninsubria.it/fitbit-api/api';
+// const API_ROOT = 'https://rais.dista.uninsubria.it/fitbit-api/api';
+const API_ROOT = 'http://localhost:3333/api';
+
 // const API_ROOT = 'https://conduit.productionready.io/api';
 
 const encode = encodeURIComponent;
@@ -80,9 +82,9 @@ const Comments = {
 
 const Profile = {
   follow: username =>
-    requests.post(`/profiles/${username}/follow`),
+    requests.post(`/users/profiles/${username}/follow`),
   get: username =>
-    requests.get(`/profiles/${username}`),
+    requests.get(`/users/profiles/${username}`),
   unfollow: username =>
     requests.del(`/profiles/${username}/follow`)
 };

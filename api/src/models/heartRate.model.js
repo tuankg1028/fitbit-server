@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var schema = new Schema(
   {
     heartRate: Number,
-    timestamp: String,
+    timestamp: Number,
     userId: mongoose.ObjectId
   },
   {

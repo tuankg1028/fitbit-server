@@ -1,0 +1,5 @@
+timestamp,event_name,email,location,ip,outcome,reason,application,device_info
+Fri Oct 01 09:15:33 UTC 2021,Login,sha@uninsubria.it,"Miami, FL, United States",162.255.138.226,SUCCESS,,Fitbit Accounts,"os_name: Mac OS,os_version: 10.12.6,browser_name: Chrome,browser_version: 94.0.4606.61,device_name: Mac OS"
+Wed Sep 15 11:28:52 UTC 2021,Login,sha@uninsubria.it,"Varese, VA, Italy",193.206.181.111,SUCCESS,,Fitbit Accounts,"os_name: Mac OS,os_version: 10.12.6,browser_name: Chrome,browser_version: 92.0.4515.159,device_name: Mac OS"
+Mon Sep 13 08:08:56 UTC 2021,Login,sha@uninsubria.it,"Varese, VA, Italy",193.206.181.111,SUCCESS,,Fitbit Accounts,"os_name: Mac OS,os_version: 10.12.6,browser_name: Chrome,browser_version: 92.0.4515.159,device_name: Mac OS"
+Mon Jul 26 16:29:37 UTC 2021,Login,sha@uninsubria.it,"Milan, MI, Italy",151.38.8.215,SUCCESS,,Fitbit Accounts,"os_name: Mac OS,os_version: 10.12.6,browser_name: Chrome,browser_version: 91.0.4472.164,device_name: Mac OS"

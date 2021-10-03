@@ -14,4 +14,4 @@ mongoose.connection.on("error", err => {
   console.log("Connect MONDGODB ERROR", err);
 });
 
-mongoose.set("debug", true);
+mongoose.set("debug", false);

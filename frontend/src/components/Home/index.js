@@ -11,7 +11,8 @@ import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   APPLY_TAG_FILTER,
-  CHANGE_TAB
+  CHANGE_TAB,
+  PROFILE_PAGE_LOADED
 } from '../../constants/actionTypes';
 import { DATA_TYPE } from '../../constants'
 
@@ -33,9 +34,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch({  type: HOME_PAGE_UNLOADED }),
   changeSidebarTab: tab => 
     dispatch({  type: CHANGE_TAB, tab }),
+
 });
 
-const encryptDataInterVal = async (props) => {
+const encrypteData = async ( data) => {
   const seal = await SEAL()
   const schemeType = seal.SchemeType.bfv
   const securityLevel = seal.SecurityLevel.tc128
@@ -63,29 +65,64 @@ const encryptDataInterVal = async (props) => {
     true, // ExpandModChain
     securityLevel // Enforce a security level
   )
-  const encoder = seal.BatchEncoder(context)
+
   const keyGenerator = seal.KeyGenerator(context)
-  
+
   const publicKey = keyGenerator.createPublicKey()
   const secretKey = keyGenerator.secretKey()
-  // console.log(2, secretKey.save())
+  // const UploadedSecretKey = seal.SecretKey()
+  // UploadedSecretKey.load(context, secretKey)
+  // const UploadedPublicKey = seal.PublicKey()
+  // UploadedPublicKey.load(context, publicKey)
 
+  const encoder = seal.BatchEncoder(context)
   const encryptor = seal.Encryptor(context, publicKey)
   const decryptor = seal.Decryptor(context, secretKey)
-  const evaluator = seal.Evaluator(context)
-  
-  
-  const array = Int32Array.from([1,22,33])
+    
+  const array = Int32Array.from(Array.from({length: 409}, (_, i) => i))
 
+  // Encode the Array
+  const plainText = encoder.encode(array)
+
+    // Encrypt the PlainText
+  const cipherText = encryptor.encrypt(plainText)
+
+  const decryptedPlainText = decryptor.decrypt(cipherText)
+  const decodedArray = encoder.decode(decryptedPlainText)
+  console.log(1, cipherText.save())
+  return cipherText
+}
+const encryptDataInterVal = async (props) => {
+  const [heartRateData] = await Promise.all([
+    agent.Data.getAll(DATA_TYPE.HEART_RATE)
+  ])
+
+  encrypteData()
+
+  // console.log(2, UploadedSecretKey.save())
+
+  // const encryptor = seal.Encryptor(context, publicKey)
+  // const decryptor = seal.Decryptor(context, secretKey)
+  // const evaluator = seal.Evaluator(context)
   
+  
+  // const array = Int32Array.from([1, -2, 3, 4])
+  // Encode the Array
+  // const plainText = encoder.encode(array)
+
+  // // Encrypt the PlainText
+  // 
 
  
+  // evaluator.negate(cipherText, cipherText, )
+  
+
 
   // const decryptedPlainText = decryptor.decrypt(cipherText)
 
-  // Decode the PlainText
+  // // // Decode the PlainText
   // const decodedArray = encoder.decode(decryptedPlainText)
-
+  // console.log(222, decodedArray[0], decodedArray[1], decodedArray[2])
 
   // if(props.data) {
   
@@ -118,8 +155,9 @@ class Home extends React.Component {
   componentWillMount() { 
     const { dataType } = this.props.match.params
     const sidebarTab = dataType && Object.values(DATA_TYPE).includes(dataType) ? dataType : DATA_TYPE.HEART_RATE
-      
-    this.props.onLoad(sidebarTab, Promise.all([agent.Data.getAll(sidebarTab), agent.Data.getEncryptedData(sidebarTab)]));
+    
+    // load sensor data
+    this.props.onLoad(sidebarTab, Promise.all([agent.Data.getAll(sidebarTab), agent.Data.getEncryptedData(sidebarTab), agent.Profile.get("lethanhtuan1028@gmail.com")]));
   }
 
   componentDidMount () {

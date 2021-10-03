@@ -6,7 +6,6 @@ var schema = new Schema(
     cipherText: String,
     timestamp: String,
     type: String,
-    userId: mongoose.ObjectId
   },
   {
     timestamps: true,

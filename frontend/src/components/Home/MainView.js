@@ -122,7 +122,6 @@ const renderEncryptedData = (props) => {
       <tr key={index}>
         <th scope="row">{index + 1}</th>
         <td title={row.cipherText}>{row.cipherText || "-" }</td>
-        <td>{ new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(row.timestamp) }</td>  
       </tr>
     ))
   }
@@ -134,7 +133,6 @@ const renderEncryptedData = (props) => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Ciphertext</th>
-            <th scope="col">Time</th>
           </tr>
         </thead>
         <tbody>

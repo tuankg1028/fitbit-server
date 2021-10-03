@@ -1,5 +1,6 @@
 // models
 import HeartRate from "../models/heartRate.model";
+import User from "../models/user.model";
 import Accelerometer from "../models/accelerometer.model";
 import Barometer from "../models/barometer.model";
 import Geolocation from "../models/geolocation.model";
@@ -110,9 +111,13 @@ const createEncryptedData = async (req, res) => {
     HeartRate.model
     const input = req.body;
     console.log("Create data :: input", input)
-    const { id: userId } = req.user || {};
-    
-    const result = await EncyptedData.create(input)
+    const { encryptedData } = input
+
+    // get user
+    const user = await User.findOne()
+    const { id: userId } = user || {};
+
+    const result = await EncyptedData.insertMany(encryptedData.map(item => ({...item, userId})))
     res.json(result);
   } catch (error) {
     res.status(400).json({message: error.message});

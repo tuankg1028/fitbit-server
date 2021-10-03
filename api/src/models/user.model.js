@@ -5,6 +5,7 @@ var schema = new Schema(
   {
     deviceModelId: String,
     secretKey: String,
+    publicKey: String,
     timestamp: String
   },
   {

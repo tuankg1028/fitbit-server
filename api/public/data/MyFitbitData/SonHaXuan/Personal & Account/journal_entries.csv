@@ -1,0 +1,4 @@
+entry_id,log_time,log_type,value,meta,entry_category,zone_offset
+8543f870-ca2f-11eb-8a10-cba2ee65b5cc,2021-06-10T23:04:44,MOOD,2,{firstSource=3, firstValue=5, logSource=1, mindfulnessSessionId=2e41ccf0-ca2f-11eb-8080-808080808080, source=DeviceRelaxSession},MOOD,+02:00
+cfc2bb00-b424-11eb-b0c0-df76b096e516,2021-05-13T21:52:48,MOOD,3,{},MOOD,+02:00
+779a7140-addd-11eb-8c01-d3a1492482b9,2021-05-05T22:06:46,MOOD,3,{firstSource=3, firstValue=5, logSource=1, mindfulnessSessionId=1b7f7e50-addd-11eb-8080-808080808080, source=DeviceRelaxSession},MOOD,+02:00

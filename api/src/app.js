@@ -10,6 +10,7 @@ import routes from "./routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerDocumentJson from "../swagger.json";
+import './helpers/seed'
 
 const app = express();
 

@@ -7,7 +7,11 @@ import {
   UPDATE_FIELD_AUTH
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+const defaultState = {
+  email: "lethanhtuan1028@gmail.com"
+};
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case LOGIN:
     case REGISTER:
