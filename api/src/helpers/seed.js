@@ -46,8 +46,8 @@ const heartRate = async () => {
 
 const encryptHeartRate = async () => {
   const user = await User.findOne()
-  const heartRateData = await HeartRate.find().limit(2000)
-  const heartRateData2 = heartRateData.splice(0, 1000)
+  const heartRateData = await HeartRate.find().limit(4000)
+  const heartRateData2 = heartRateData.splice(0, 2000)
    
   // ES6 or CommonJS
   // import SEAL from 'node-seal'
@@ -99,6 +99,11 @@ const encryptHeartRate = async () => {
   const encryptor = seal.Encryptor(context, UploadedPublicKey)
   const decryptor = seal.Decryptor(context, UploadedSecretKey)
   const evaluator = seal.Evaluator(context)
+
+
+  const keyGenerator = seal.KeyGenerator(context)
+  const relinKey = keyGenerator.createRelinKeys()
+
   console.timeEnd('Init key')
 
   const data = heartRateData.reduce((acc, item)=> {
@@ -133,10 +138,36 @@ const encryptHeartRate = async () => {
    const cipherText2 = encryptor.encrypt(plainText2)
    console.timeEnd('Encrypt')
 
-   console.time('Calculate')
+   console.time('CalculateWithAdd')
    // Add the CipherText to itself and store it in the destination parameter (itself)
    const cipherTextResult = evaluator.add(cipherText, cipherText2) // Op (A), Op (B), Op (Dest)
-   console.timeEnd('Calculate')
+   console.timeEnd('CalculateWithAdd')
+
+   console.time('CalculateWithSub')
+   // Add the CipherText to itself and store it in the destination parameter (itself)
+   const cipherTextResultSub = evaluator.sub(cipherText, cipherText2) // Op (A), Op (B), Op (Dest)
+   console.timeEnd('CalculateWithSub')
+
+   console.time('CalculateWithMultiply')
+   // Add the CipherText to itself and store it in the destination parameter (itself)
+   evaluator.multiply(cipherText, cipherText2) // Op (A), Op (B), Op (Dest)
+   console.timeEnd('CalculateWithMultiply')
+
+   console.time('CalculateWitsSquare')
+   // Add the CipherText to itself and store it in the destination parameter (itself)
+   evaluator.square(cipherText) // Op (A), Op (B), Op (Dest)
+   console.timeEnd('CalculateWitsSquare')
+
+   console.time('CalculateWithNegate')
+   // Add the CipherText to itself and store it in the destination parameter (itself)
+   evaluator.square(cipherText) // Op (A), Op (B), Op (Dest)
+   console.timeEnd('CalculateWithNegate')
+
+   console.time('CalculateWithExponentiate')
+   // Add the CipherText to itself and store it in the destination parameter (itself)
+   evaluator.exponentiate(cipherText, 3, relinKey) // Op (A), Op (B), Op (Dest)
+   console.timeEnd('CalculateWithExponentiate')
+
    // Or create return a new cipher with the result (omitting destination parameter)
    // const cipher2x = evaluator.add(cipherText, cipherText)
  
