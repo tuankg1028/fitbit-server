@@ -1,0 +1,22 @@
+{
+  "name": "user",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "compute-variance": "^3.0.0",
+    "crypto": "^1.0.1",
+    "lodash": "^4.17.21",
+    "mathjs": "^9.5.1",
+    "moment": "^2.29.1",
+    "node-seal": "^4.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

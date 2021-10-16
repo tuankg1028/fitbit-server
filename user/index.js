@@ -171,4 +171,4 @@ async function syncProvider() {
   console.timeEnd("HE Decrypt")
   console.log(result)
 }
-syncProvider()
+// syncProvider()
