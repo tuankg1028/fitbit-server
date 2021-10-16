@@ -181,7 +181,7 @@ const encryptHeartRate = async () => {
 
    console.log('decodedArray', decodedArray)
 }
-encryptHeartRate()
+// encryptHeartRate()
 
 
 

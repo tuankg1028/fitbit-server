@@ -16,7 +16,7 @@ const router = Router();
  *
  */
 router.use(
-  "/blogs",
+  "/sensors",
   // [authUser],
   blogRouter
 );

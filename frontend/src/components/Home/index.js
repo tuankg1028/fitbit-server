@@ -89,6 +89,7 @@ const encrypteData = async ( data) => {
 
   const decryptedPlainText = decryptor.decrypt(cipherText)
   const decodedArray = encoder.decode(decryptedPlainText)
+ 
   console.log(1, cipherText.save())
   return cipherText
 }

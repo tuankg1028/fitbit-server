@@ -3,9 +3,8 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema(
   {
-    cipherText: String,
-    timestamp: String,
-    type: String,
+    value: String,
+    header: String
   },
   {
     timestamps: true,
